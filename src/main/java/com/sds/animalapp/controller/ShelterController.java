@@ -1,5 +1,7 @@
 package com.sds.animalapp.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,7 @@ public class ShelterController {
     
     @Autowired
     private SignguService signguService;
+    
 
     @GetMapping("/shelter/list")
     public String getShelter(Model model,
@@ -59,6 +62,9 @@ public class ShelterController {
         shelterSelectParam.setRowCount(pager.getPageSize());
         
         List shelterList = shelterService.selectAll(shelterSelectParam);
+        Shelter shelter = new Shelter();
+        
+        
         
         model.addAttribute("pager", pager);
         model.addAttribute("shelterList", shelterList);
@@ -67,12 +73,12 @@ public class ShelterController {
         model.addAttribute("keyword", keyword);
         model.addAttribute("currentSidoCode", currentSidoCode);
         model.addAttribute("currentSignguCode", currentSignguCode);
-        
+        model.addAttribute("shelter", shelter);
 
         return "shelter/list";
     }
 
-    // 세부창
+ // 세부창
     @GetMapping("/shelter/detail")
     public String getDetail(Model model, @RequestParam(value = "id", required = false) Integer shelter_idx,
                             @RequestParam(value = "careNm", required = false) String careNm) {
@@ -85,6 +91,7 @@ public class ShelterController {
         if (shelter_idx == null) {
             return "redirect:/error";
         }
+        
 
         // shelter_idx가 존재하면 해당 shelter 정보를 조회하여 모델에 추가
         Shelter shelter = shelterService.select(shelter_idx);
@@ -102,4 +109,5 @@ public class ShelterController {
         return signguList;
     }
 
+    
 }

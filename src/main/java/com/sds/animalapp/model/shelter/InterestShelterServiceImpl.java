@@ -12,16 +12,24 @@ public class InterestShelterServiceImpl implements InterestShelterService{
 	private InterestShelterDAO interestShelterDAO;
 
 	public void insertInterestShelter(InterestShelter interestShelter) {
-		interestShelterDAO.insertInterestShelter(interestShelter);			
+		if(!duplicatedInterestShelter(interestShelter)) {
+			interestShelterDAO.insertInterestShelter(interestShelter);			
+		}else {
+			throw new IllegalArgumentException("이미 등록된 관심 동물입니다.");
+		}
 	}
 
 	public void deleteInterestShelter(int interest_shetler_idx) {
 		interestShelterDAO.deleteInterestShelter(interest_shetler_idx);
 	}
 
-	public boolean duplicatedInterestShelter(int shelter_idx, int member_idx) {
-		return interestShelterDAO.duplicatedInterestShelter(shelter_idx, member_idx) != null;
+	@Override
+	public boolean duplicatedInterestShelter(InterestShelter interestShelter) {
+		int count = interestShelterDAO.duplicatedInterestShelter(interestShelter);
+		return count > 0;
 	}
+
+
 
 
 }

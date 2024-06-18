@@ -13,14 +13,15 @@
 	</select>
 	
     <insert id="insert" parameterType="VolunteerNotice">
-        INSERT INTO volunteer_notice (vol_date, recruit_count, shelter_name, body_text, title, regdate)
-        VALUES (#{vol_date}, #{recruit_count}, #{shelter_name}, #{body_text}, #{title}, CURRENT_TIMESTAMP)
+        INSERT INTO volunteer_notice (vol_date, recruit_count, shelter_name, body_text, title, regdate, member_idx)
+        VALUES (#{vol_date}, #{recruit_count}, #{shelter_name}, #{body_text}, #{title}, CURRENT_TIMESTAMP, #{member_idx})
     </insert>
     
     <select id="selectAll" parameterType="java.util.Map" resultType="VolunteerNotice">
 		SELECT * FROM volunteer_notice
-	    WHERE title LIKE CONCAT('%', #{keyword}, '%') OR shelter_name LIKE CONCAT('%', #{keyword}, '%')
-	    LIMIT #{startIndex}, #{rowCount}
+		WHERE title LIKE CONCAT('%', #{keyword}, '%') OR shelter_name LIKE CONCAT('%', #{keyword}, '%')
+		ORDER BY regdate DESC
+		LIMIT #{startIndex}, #{rowCount};
 	</select>	
 	
     <select id="select" parameterType="int" resultType="VolunteerNotice">

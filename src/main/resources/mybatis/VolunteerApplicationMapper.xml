@@ -7,7 +7,7 @@
     </insert>
     
     <delete id="delete" parameterType="int">
-        DELETE FROM volunteer_application WHERE id = #{id}
+        DELETE FROM volunteer_application WHERE notice_id = #{id} AND member_idx = #{member_idx}
     </delete>
     
     <select id="findApplication" parameterType="map" resultType="VolunteerApplication">
@@ -30,6 +30,11 @@
     <select id="findAll" resultType="VolunteerApplication">
         SELECT * FROM volunteer_application
     </select>
+    
+    <select id="selectCount" parameterType="int" resultType="int">
+	    SELECT COUNT(*) FROM volunteer_application
+	    WHERE member_idx = #{member_idx} AND notice_id = #{noticeId}
+	</select>
 </mapper>
 
 

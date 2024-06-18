@@ -19,8 +19,8 @@ public class VolunteerApplicationServiceImpl implements VolunteerApplicationServ
     }
 
     @Override
-    public void cancel(int id) {
-        volunteerApplicationDAO.delete(id);
+    public void cancel(int id, int member_idx) {
+        volunteerApplicationDAO.delete(id, member_idx);
     }
 
     @Override
@@ -37,5 +37,10 @@ public class VolunteerApplicationServiceImpl implements VolunteerApplicationServ
     public VolunteerApplication findById(int id) {
         return volunteerApplicationDAO.findApplicationById(id);
     }
+
+	@Override
+	public int getRecordNum(int noticeId, int member_idx) {
+		return volunteerApplicationDAO.selectCount(noticeId, member_idx);
+	}
 }
 

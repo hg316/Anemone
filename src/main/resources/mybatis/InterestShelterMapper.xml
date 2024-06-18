@@ -10,7 +10,8 @@
 	delete from interest_shelter where interest_shelter_idx = #{interest_shelter_idx}
 	</delete>
 
-	<select id="duplicatedInterestShelter" resultType="com.sds.animalapp.domain.InterestShelter">
-		select * from interest_shelter where shelter_idx = #{shelter_idx} and member_idx=#{member_idx}
+	<select id="duplicatedInterestShelter" resultType="int" parameterType="map">
+	select count(*) from interest_shelter where shelter_idx = #{shelter_idx} and member_idx = #{member_idx}
+
 	</select>
 </mapper>

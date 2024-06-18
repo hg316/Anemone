@@ -37,6 +37,7 @@ public class ShelterApiService {
 		String shelterCdResponse = null;
 		List<Shelter> shelterList= null;
 		
+		
 		try {
 		
 			StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1543061/animalShelterSrvc/shelterInfo"); /*URL*/

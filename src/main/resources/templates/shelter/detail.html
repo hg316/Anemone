@@ -33,36 +33,38 @@
 				</div>
 		</div>
         <!-- 보호소 정보 -->
+        <input type="hidden" th:value="${detail.lat}" id="shelterLat">
+        <input type="hidden" th:value="${detail.lng}" id="shelterLng">
         <div class="form-group row">
             <div class="col-6">
                 <div class="form-group row">
                     <label for="date_time" class="col-sm-12 col-form-label">동물보호센터명</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" th:value="${detail.careNm}" id="shelterNm" name="" readonly>
+                        <input type="text" class="form-control" th:value="${detail.careNm}" id="shelterNm" readonly>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="date_time" class="col-sm-12 col-form-label">동물보호센터유형</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" th:value="${detail.divisionNm}" id="" name="" readonly>
+                        <input type="text" class="form-control" th:value="${detail.divisionNm}" id="shelterDivisionNm" readonly>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="date_time" class="col-sm-12 col-form-label">동물보호센터지정일</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" th:value="${detail.dsignationDate}" id="" name="" readonly>
+                        <input type="text" class="form-control" th:value="${detail.dsignationDate}" id="shelterDsignationDate" readonly>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="date_time" class="col-sm-12 col-form-label">평일운영시작시각</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" th:value="${detail.weekOprStime}" id="" name="" readonly>
+                        <input type="text" class="form-control" th:value="${detail.weekOprStime}" id="shelterWeekOprStime" readonly>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="date_time" class="col-sm-12 col-form-label">전화번호</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" th:value="${detail.careTel}" id="" name="" readonly>
+                        <input type="text" class="form-control" th:value="${detail.careTel}" id="shelterCareTel" readonly>
                     </div>
                 </div>
             </div>
@@ -70,31 +72,31 @@
                 <div class="form-group row">
                     <label for="date_time" class="col-sm-12 col-form-label">관리기관명</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" th:value="${detail.orgNm}" id="" name="" readonly>
+                        <input type="text" class="form-control" th:value="${detail.orgNm}" id="shelterOrgNm"  readonly>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="date_time" class="col-sm-12 col-form-label">소재지도로명주소</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" th:value="${detail.careAddr}" id="" name="" readonly>
+                        <input type="text" class="form-control" th:value="${detail.careAddr}" id="shelterCareAddr" readonly>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="date_time" class="col-sm-12 col-form-label">휴무일</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" th:value="${detail.closeDay}" id="" name="" readonly>
+                        <input type="text" class="form-control" th:value="${detail.closeDay}" id="shelterCloseDay" readonly>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="date_time" class="col-sm-12 col-form-label">평일운영종료시각</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" th:value="${detail.weekOprEtime}" id="" name="" readonly>
+                        <input type="text" class="form-control" th:value="${detail.weekOprEtime}" id="shelterWeekOprEtime" readonly>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="date_time" class="col-sm-12 col-form-label">보호소 정보 업데이트 날짜</label>
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" th:value="${detail.dataStdDt}" id="" name="" readonly>
+                        <input type="text" class="form-control" th:value="${detail.dataStdDt}" id="shelterDataStdDt" readonly>
                     </div>
                 </div>
             </div>
@@ -108,8 +110,9 @@
 </div>
 </body>
 </html>
-<script type="text/javascript">
+<script th:inline="javascript">
 	function registInterestShelter(shelter_idx,member_idx){
+		
 		$.ajax({
 			url : '/shelter/registInterestShelter',
 			type:"POST",
@@ -126,6 +129,22 @@
 		});
 	}
 	
+	function getShelterList(careNm){
+		$.ajax({
+			url : '/rest/shelter',
+			type:"GET",
+			data:{
+				care_nm : careNm
+			},
+			success:function(response){
+				console.log(response);
+			},
+			error : function(xhr,status,error){
+				console.error('Error',status,error);
+			}
+		});
+	}
+	
   function list(){
     $("#form1").attr({
       action:"/volunteer/list",
@@ -133,24 +152,46 @@
     });
     $("#form1").submit();
   }
+
   
   function initMap() {
-      var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 35.922356, lng: 128.59903},
-          zoom: 8
-      });
+      window.addEventListener('DOMContentLoaded', (event) => {
+          const shelterLat = parseFloat(document.getElementById('shelterLat').value);
+          const shelterLng = parseFloat(document.getElementById('shelterLng').value);
+          const shelterNm = document.getElementById('shelterNm').value;
+          console.log("shelterLat: " + shelterLat);
+          console.log("shelterLng: " + shelterLng);
+          
+          
+          if(shelterLat == 0 && shelterLng == 0){
+        	// 유효한 값이 없는 경우 "정보가 없습니다" 메시지 표시
+              const infoWindow = new google.maps.InfoWindow({
+                  content: '정보가 없습니다',
+                  position: center
+              });
+              infoWindow.open(map);
+          }
+          
+          const mapDiv = document.getElementById('map');
+          const center = { lat: shelterLat, lng: shelterLng };
+          const map = new google.maps.Map(mapDiv, {
+              center: center,
+              zoom: 15
+          });
 
-      // 마커 위치 배열
-      var markers = [
-          {position: {lat: 35.922356, lng: 150.644}, title: 'Marker 1'}
-      ];
-
-      // 배열을 순회하며 각 마커를 맵에 추가
-      markers.forEach(function(markerInfo) {
-          var marker = new google.maps.Marker({
-              position: markerInfo.position,
+          // 마커 추가 예시
+          const marker = new google.maps.Marker({
+              position: center,
               map: map,
-              title: markerInfo.title
+              title: shelterNm
+          });
+          
+          const infoWindow = new google.maps.InfoWindow({
+              content: shelterNm
+          });
+          
+          marker.addListener('click', function() {
+              infoWindow.open(map, marker);
           });
       });
   }
@@ -163,7 +204,7 @@
   //유기동물list 페이지로 redirect
 	$(function() {
 		$("#bt_search_animal").click(function() {
-			var care = $("#shelterNm").val(); //관할기관
+			const care = $("#shelterNm").val(); //관할기관
 			care = care.replace(/\([^)]*\)/g, ''); //괄호와 내부 내용 제거
 			location.href = "/animal/list?care=" + encodeURIComponent(care);
 		});
