@@ -29,11 +29,11 @@ public class AnimalController {
 	private final AnimalApiService animalApiService;
 
 	private final MemberService memberService; // MemberService
-	
+
 	private final InterestAnimalService interestAnimalService;
- 	
+
 	private final AdoptAnimalService adoptAnimalService;
-	
+
 	@GetMapping("/animal/list")
 	public String getAnimal(Animal animal, Model model,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
@@ -88,21 +88,22 @@ public class AnimalController {
 		Member member = (Member) session.getAttribute("member");
 		Animal animal = animalService.select(animal_idx);
 		int applicantsCount = animalService.countRegistMember(animal_idx); // 수정
-		
-		Integer shelter_idx = animalService.findShelterIdxByCareNm(animal.getCareNm());
+
+		Integer shelter_idx = animalService.findShelterIdxByCareNm(animal.getCareNm(), animal.getCareAddr(),
+				animal.getOrgNm());
 		if (shelter_idx != null) {
 			model.addAttribute("shelter_idx", shelter_idx);
 		}
-		if(member!=null) {
+		if (member != null) {
 			int interestRecordNum = interestAnimalService.getInterestRecordNum(member.getMember_idx(), animal_idx);
 			int adoptRecordNum = adoptAnimalService.getAdopteRecordNum(member.getMember_idx(), animal_idx);
 			model.addAttribute("interestRecordNum", interestRecordNum);
-	        model.addAttribute("adoptRecordNum", adoptRecordNum);
+			model.addAttribute("adoptRecordNum", adoptRecordNum);
 		}
-		
+
 		model.addAttribute("detail", animal);
 		model.addAttribute("applicantsCount", applicantsCount); // 추가
-        
+
 		return "animal/detail";
 	}
 

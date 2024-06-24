@@ -26,5 +26,5 @@ public interface AnimalService {
 
 	Animal selectByDesertionNo(String desertionNo); // 유기번호로 동물 조회
 
-	Integer findShelterIdxByCareNm(String careNm);
+	Integer findShelterIdxByCareNm(String careNm, String careAddr, String orgNm);
 }

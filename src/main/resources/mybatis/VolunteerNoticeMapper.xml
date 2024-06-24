@@ -40,6 +40,6 @@
 		resultType="java.lang.Integer">
 		SELECT shelter_idx
 		FROM shelter
-		WHERE careNm = #{careNm}
+		WHERE careNm = #{careNm} limit 1;
 	</select>
 </mapper>

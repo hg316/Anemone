@@ -15,12 +15,15 @@ public interface AdoptAnimalService {
 
 	// 입양신청 동물 중복 확인
 	public boolean checkDuplicateAdoptAnimal(AdoptAnimal adoptAnimal);
-	
+
 	public int getAdopteRecordNum(int member_idx, int animal_idx);
-	
+
 	List<AdoptAnimal> getAllAdopts();
-    List<AdoptAnimal> getAdoptByMemberIdx(int member_idx);
-    AdoptAnimal findById(int adopt_animal_idx);
-    AdoptAnimal findAdoptByAnimalIdxAndMemberIdx(int animal_idx, int member_idx);
+
+	List<AdoptAnimal> getAdoptByMemberIdx(int member_idx);
+
+	AdoptAnimal findById(int adopt_animal_idx);
+
+	AdoptAnimal findAdoptByAnimalIdxAndMemberIdx(int animal_idx, int member_idx);
 
 }

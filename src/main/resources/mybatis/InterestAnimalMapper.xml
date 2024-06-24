@@ -6,8 +6,10 @@
 	<!-- 관심 동물 등록 -->
 	<insert id="addInterestAnimal"
 		parameterType="com.sds.animalapp.domain.InterestAnimal">
-		INSERT INTO interest_animal (member_idx, animal_idx, kindCd, popfile)
-		VALUES (#{member_idx}, #{animal_idx}, #{kindCd}, #{popfile})
+		INSERT INTO interest_animal (member_idx, animal_idx,
+		kindCd, popfile)
+		VALUES (#{member_idx}, #{animal_idx}, #{kindCd},
+		#{popfile})
 	</insert>
 
 	<!-- 관심 동물 삭제 -->
@@ -26,25 +28,30 @@
 		WHERE member_idx =
 		#{member_idx} AND animal_idx = #{animal_idx}
 	</select>
-	
-	<select id="findInterestById" parameterType="int" resultType="InterestAnimal">
-        SELECT * FROM interest_animal WHERE interest_animal_idx = #{interest_animal_idx}
-    </select>
-    
-    <select id="findByMemberIdx" parameterType="int" resultType="InterestAnimal">
-        SELECT * FROM interest_animal WHERE member_idx = #{member_idx}
-    </select>
-    
-    <select id="findAll" resultType="InterestAnimal">
-        SELECT * FROM interest_animal
-    </select>
-    
-    <select id="findInterestByAnimalIdxAndMemberIdx" parameterType="map" resultType="InterestAnimal">
-        SELECT * FROM interest_animal WHERE animal_idx = #{animal_idx} AND member_idx = #{member_idx}
-    </select>
-    
-    <select id="selectCount" parameterType="int" resultType="int">
-        SELECT COUNT(*) FROM interest_animal
-        WHERE member_idx = #{member_idx} AND animal_idx = #{animal_idx}
-    </select>
+
+	<select id="findInterestById" parameterType="int"
+		resultType="InterestAnimal">
+		SELECT * FROM interest_animal WHERE interest_animal_idx =
+		#{interest_animal_idx}
+	</select>
+
+	<select id="findByMemberIdx" parameterType="int"
+		resultType="InterestAnimal">
+		SELECT * FROM interest_animal WHERE member_idx = #{member_idx}
+	</select>
+
+	<select id="findAll" resultType="InterestAnimal">
+		SELECT * FROM interest_animal
+	</select>
+
+	<select id="findInterestByAnimalIdxAndMemberIdx"
+		parameterType="map" resultType="InterestAnimal">
+		SELECT * FROM interest_animal WHERE animal_idx = #{animal_idx} AND
+		member_idx = #{member_idx}
+	</select>
+
+	<select id="selectCount" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM interest_animal
+		WHERE member_idx = #{member_idx} AND animal_idx = #{animal_idx}
+	</select>
 </mapper>

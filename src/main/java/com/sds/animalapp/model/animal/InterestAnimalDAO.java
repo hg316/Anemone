@@ -19,16 +19,17 @@ public interface InterestAnimalDAO {
 
 	// 관심 동물 중복 확인
 	public int checkDuplicateInterestAnimal(InterestAnimal interestAnimal);
-	
-	public int selectCount(@Param("member_idx")int member_idx, @Param("animal_idx")int animal_idx);
-	
+
+	public int selectCount(@Param("member_idx") int member_idx, @Param("animal_idx") int animal_idx);
+
 	InterestAnimal findInterest(@Param("kindCd") String kindCd, @Param("popfile") String popfile);
-	
+
 	List<InterestAnimal> findByMemberIdx(int member_idx);
 
-    List<InterestAnimal> findAll();
-    
-    InterestAnimal findInterestById(int interest_animal_idx);
-    
-    InterestAnimal findInterestByAnimalIdxAndMemberIdx(@Param("animal_idx") int animal_idx, @Param("member_idx") int member_idx);
+	List<InterestAnimal> findAll();
+
+	InterestAnimal findInterestById(int interest_animal_idx);
+
+	InterestAnimal findInterestByAnimalIdxAndMemberIdx(@Param("animal_idx") int animal_idx,
+			@Param("member_idx") int member_idx);
 }

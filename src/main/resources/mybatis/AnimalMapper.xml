@@ -79,7 +79,8 @@
 
 	<select id="selectPreview" resultType="Animal">
 		SELECT * FROM animal
-		ORDER BY RAND()
+		ORDER
+		BY RAND()
 		LIMIT 4;
 	</select>
 
@@ -159,11 +160,12 @@
 		#{chargeNm}, #{officetel})
 	</insert>
 
-	<select id="findShelterIdxByCareNm" parameterType="String"
+	<select id="findShelterIdxByCareNm"
 		resultType="java.lang.Integer">
 		SELECT shelter_idx
 		FROM shelter
-		WHERE careNm = #{careNm}
+		WHERE (careNm = #{careNm} and
+		careAddr = #{careAddr} and orgNm = #{orgNm});
 	</select>
 
 </mapper>

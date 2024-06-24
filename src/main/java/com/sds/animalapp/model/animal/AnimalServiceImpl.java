@@ -60,7 +60,7 @@ public class AnimalServiceImpl implements AnimalService {
 	}
 
 	@Override
-	public Integer findShelterIdxByCareNm(String careNm) {
-		return animalDAO.findShelterIdxByCareNm(careNm);
+	public Integer findShelterIdxByCareNm(String careNm, String careAddr, String orgNm) {
+		return animalDAO.findShelterIdxByCareNm(careNm, careAddr, orgNm);
 	}
 }

@@ -15,11 +15,14 @@ public interface InterestAnimalService {
 
 	// 관심 동물 중복 확인
 	public boolean checkDuplicateInterestAnimal(InterestAnimal interestAnimal);
-	
+
 	public int getInterestRecordNum(int member_idx, int animal_idx);
-	
+
 	List<InterestAnimal> getAllInterests();
-    List<InterestAnimal> getInterestByMemberIdx(int member_idx);
-    InterestAnimal findById(int interest_animal_idx);
-    InterestAnimal findInterestByAnimalIdxAndMemberIdx(int animal_idx, int member_idx);
+
+	List<InterestAnimal> getInterestByMemberIdx(int member_idx);
+
+	InterestAnimal findById(int interest_animal_idx);
+
+	InterestAnimal findInterestByAnimalIdxAndMemberIdx(int animal_idx, int member_idx);
 }

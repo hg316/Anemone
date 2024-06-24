@@ -3,6 +3,7 @@ package com.sds.animalapp.model.animal;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.sds.animalapp.domain.Animal;
 import com.sds.animalapp.domain.AnimalSelectParam;
@@ -30,5 +31,6 @@ public interface AnimalDAO {
 
 	Animal selectByDesertionNo(String desertionNo); // 유기번호로 동물 조회
 
-	public Integer findShelterIdxByCareNm(String careNm);
+	Integer findShelterIdxByCareNm(@Param("careNm") String careNm, @Param("careAddr") String careAddr,
+			@Param("orgNm") String orgNm);
 }
