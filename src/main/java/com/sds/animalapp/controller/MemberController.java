@@ -282,7 +282,7 @@ public class MemberController {
         member.setUid(id);
         member.setNickname(name);
         member.setEmail(email);
-        member.setProfileImageUrl(profile_image);
+        member.setProfile_image_url(profile_image);
 
         Sns naverSns = snsService.selectByName("naver");
         if (naverSns == null) {

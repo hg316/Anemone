@@ -29,7 +29,7 @@
 
                                     <!-- naver 로그인 시 나오는 프로필 -->
                                     <th:block th:if="${session.member.sns.sns_name == 'naver'}">
-                                        <img th:src="${session.member.profileImageUrl}" id="headerImg" alt="Profile Image" class="rounded-circle mx-auto img-fluid"/>
+                                        <img th:src="${session.member.profile_image_url}" id="headerImg" alt="Profile Image" class="rounded-circle mx-auto img-fluid"/>
                                     </th:block>
 
                                     <!-- 카카오 로그인 시 나오는 프로필 -->

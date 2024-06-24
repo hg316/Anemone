@@ -51,19 +51,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="shelter, i :${shelterList}">
-                        <td>
-                            <a th:href="@{/shelter/detail(id=${shelter.shelter_idx})}" th:text="${shelter.orgNm}"></a>
-                        </td>
-                        <td th:text="${shelter.careNm}"></td>
-                        <td th:text="${shelter.careTel}"></td>
-                        <td th:text="${shelter.careAddr}"></td>
-                    </tr>
-                </tbody>
+				    <tr th:if="${#lists.isEmpty(shelterList)}">
+				        <td colspan="4">보호소가 존재하지 않습니다</td>
+				    </tr>
+				    <tr th:each="shelter, i :${shelterList}">
+				        <td>
+				            <a th:href="@{/shelter/detail(id=${shelter.shelter_idx})}" th:text="${shelter.orgNm}"></a>
+				        </td>
+				        <td th:text="${shelter.careNm}"></td>
+				        <td th:text="${shelter.careTel}"></td>
+				        <td th:text="${shelter.careAddr}"></td>
+				    </tr>
+				</tbody>
             </table>
 
             <!-- Pagination -->
-            <div class="product__pagination">
+            <div class="product__pagination" th:if="${!#lists.isEmpty(shelterList)}">
                 <nav aria-label="Page navigation">
                     <ul class="pagination justify-content-center">
                         <li class="page-item" th:class="${pager.firstPage == 1 ? 'disabled' : ''}">
